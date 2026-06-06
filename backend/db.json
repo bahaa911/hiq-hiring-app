@@ -1,0 +1,16 @@
+{
+  "roles": [
+    {
+      "id": "f2985bab-a161-4c3b-9d13-bfb7254bae0d",
+      "title": "Senior Network Engineer",
+      "department": "IT Infrastructure",
+      "level": "Senior",
+      "priority": "High",
+      "currentStage": 2,
+      "stageNotes": {},
+      "candidateName": "",
+      "createdAt": "2026-06-06T20:49:57.661Z",
+      "updatedAt": "2026-06-06T20:56:14.458Z"
+    }
+  ]
+}
