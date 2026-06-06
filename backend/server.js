@@ -5,10 +5,16 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
-const DB_PATH = 'D:\\hiq-hiring-app\\db.json';
+const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'db.json');
 
 app.use(cors());
 app.use(express.json());
+
+// Serve frontend static files in production
+const FRONTEND_DIST = path.join(__dirname, '..', 'frontend', 'dist');
+if (fs.existsSync(FRONTEND_DIST)) {
+  app.use(express.static(FRONTEND_DIST));
+}
 
 function readDB() {
   if (!fs.existsSync(DB_PATH)) {
@@ -75,6 +81,13 @@ app.delete('/api/roles/:id', (req, res) => {
   writeDB(db);
   res.status(204).end();
 });
+
+// For any non-API route, serve the frontend
+if (fs.existsSync(FRONTEND_DIST)) {
+  app.get('*', (_req, res) => {
+    res.sendFile(path.join(FRONTEND_DIST, 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
